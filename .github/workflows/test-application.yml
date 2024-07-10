@@ -3,7 +3,7 @@ name: Build and Test Application
 on: [ push ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
