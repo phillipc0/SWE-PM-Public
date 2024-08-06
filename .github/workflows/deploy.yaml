@@ -22,11 +22,16 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -Dmaven.test.skip
 
-      - name: Deploy to Server
+      - name: install ssh keys
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
-          chmod 600 ssh_key
-          scp -i ./ssh_key -o StrictHostKeyChecking=no target/SWE-PM.jar linux@80.158.76.105:/home/linux/deployment/
-          ssh -i ./ssh_key -o StrictHostKeyChecking=no linux@80.158.76.105 'bash /home/linux/deployment/deploy.sh'
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H 80.158.76.105 > ~/.ssh/know_hosts
+
+      - name: deploy
+        run: |
+          scp target/SWE-PM.jar linux@80.158.76.105:/home/linux/deployment/
+          ssh linux@80.158.76.105 'bash /home/linux/deployment/deploy.sh'
+          
+
+        
