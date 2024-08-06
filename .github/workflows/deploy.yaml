@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
           chmod 600 ssh_key
-          scp -i ./ssh_key target/SWE-PM.jar linux@80.158.76.105:/home/linux/deployment/ -o StrictHostKeyChecking=no
-          ssh -i ./ssh_key linux@80.158.76.105 'bash /home/linux/deployment/deploy.sh' -o StrictHostKeyChecking=no
+          scp -i ./ssh_key -o StrictHostKeyChecking=no target/SWE-PM.jar linux@80.158.76.105:/home/linux/deployment/
+          ssh -i ./ssh_key -o StrictHostKeyChecking=no linux@80.158.76.105 'bash /home/linux/deployment/deploy.sh'
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
