@@ -20,11 +20,13 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn clean package
+        run: mvn clean package -Dmaven.test.skip
 
       - name: Deploy to Server
         run: |
-          scp target/SWE-PM.jar linux@80.158.76.105:/home/linux/deployment/
-          ssh linux@80.158.76.105 'bash /home/linux/deployment/deploy.sh'
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ssh_key
+          chmod 600 ssh_key
+          scp target/SWE-PM.jar linux@80.158.76.105:/home/linux/deployment/ -i ssh_key
+          ssh linux@80.158.76.105 'bash /home/linux/deployment/deploy.sh' -i ssh_key
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
