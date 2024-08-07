@@ -13,16 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Connect to server, stop Bot and delete old files
-        uses: appleboy/ssh-action@master
-        with:
-          host: 80.158.76.105
-          username: linux
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            echo 0
-
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -32,29 +22,9 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -Dmaven.test.skip
 
-      - name: Push files
+      - name: Deploy to Server
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-
-          EXCLUDES=(
-            '--exclude=private_key.pem'
-            '--exclude=.git/'
-            '--exclude=.github/'
-          )
-          
-          rsync -avz -e "ssh -i private_key.pem -o StrictHostKeyChecking=no" "${EXCLUDES[@]}" ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/linux/deployment/
-          rm -f private_key.pem
-          
-          
-          
-
-      - name: Install requirements and start Bot
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |            
-            ssh -i private_key.pem -o StrictHostKeyChecking=no" "${EXCLUDES[@]}" ./ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/linux/deployment/ 'bash /home/linux/deployment/deploy.sh'
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ./ssh_key
+          chmod 600 ./ssh_key
+          scp -i ./ssh_key -o StrictHostKeyChecking=no target/SWE-PM.jar linux@80.158.76.105:/home/linux/deployment/
+          ssh -i ./ssh_key -o StrictHostKeyChecking=no linux@80.158.76.105 'bash /home/linux/deployment/deploy.sh'
