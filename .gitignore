@@ -3,3 +3,4 @@ target/
 !.idea/codeStyles
 !.idea/icon.png
 db/
+/swepm.iml
