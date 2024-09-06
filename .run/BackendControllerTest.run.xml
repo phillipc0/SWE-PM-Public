@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="TaskControllerTest and 2 more" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+  <configuration default="false" name="BackendControllerTest" type="JUnit" factoryName="JUnit">
     <module name="swepm" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
