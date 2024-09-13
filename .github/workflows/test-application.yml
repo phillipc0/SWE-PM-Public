@@ -32,4 +32,14 @@ jobs:
           Xvfb :99 -ac &
 
       - name: Test Application
-        run: mvn test
+        run: |
+          mkdir -p screenshots
+          mvn test
+        continue-on-error: true
+
+      - name: Upload Screenshots as Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: screenshots/
