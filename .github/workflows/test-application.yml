@@ -35,10 +35,8 @@ jobs:
         run: |
           mkdir -p screenshots
           mvn test
-        continue-on-error: true
 
       - name: Upload Screenshots as Artifacts
-        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
