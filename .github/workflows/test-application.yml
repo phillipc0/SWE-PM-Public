@@ -34,8 +34,7 @@ jobs:
       - name: Test Application
         run: |
           mkdir -p screenshots
-          echo "127.0.0.1 localhost" > /etc/hosts
-          chmod /etc/hosts 777
+          sudo -- sh -c "echo '127.0.0.1 localhost' >> /etc/hosts"
           mvn test
 
       - name: Upload Screenshots as Artifacts
