@@ -37,6 +37,7 @@ jobs:
           mvn test
 
       - name: Upload Screenshots as Artifacts
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
