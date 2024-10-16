@@ -15,21 +15,5 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install Chrome dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb libxi6 libgconf-2-4
-
-      - name: Install Chrome
-        run: |
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-          sudo apt-get -f install -y
-
-      - name: Set up display for Chrome
-        run: |
-          export DISPLAY=:99
-          Xvfb :99 -ac -screen 0 1920x1080x24 &
-
       - name: Test Application
         run: mvn test
