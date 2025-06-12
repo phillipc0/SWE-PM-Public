@@ -1,0 +1,128 @@
+<div class="row justify-content-center">
+    <div class="col hyperMove card" style="background-color: var(--todo)" id="categoryHyperMove_todo"
+         data-status="TODO">-> To Do
+    </div>
+    <div class="col hyperMove card" style="background-color: var(--assigned)" id="categoryHyperMove_assigned"
+         data-status="ASSIGNED">-> Zugewiesen
+    </div>
+    <div class="col hyperMove card" style="background-color: var(--inprogress)" id="categoryHyperMove_in_progress"
+         data-status="IN_PROGRESS">-> In Bearbeitung
+    </div>
+    <div class="col hyperMove card" style="background-color: var(--readytoreview)"
+         id="categoryHyperMove_ready_to_review" data-status="READY_TO_REVIEW">-> Ready to
+        Review
+    </div>
+    <div class="col hyperMove card" style="background-color: var(--inreview)" id="categoryHyperMove_in_review"
+         data-status="IN_REVIEW">-> In Review
+    </div>
+    <div class="col hyperMove card" style="background-color: var(--completed)" id="categoryHyperMove_done"
+         data-status="DONE">-> Fertig
+    </div>
+</div>
+<div class="btn-group" role="group"
+     style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
+    <!-- Container für die Auswahl-Buttons, links ausgerichtet -->
+    <div class="btn-group" role="group" aria-label="Filter tasks" style="display: flex;">
+        <button id="boardAllTasks" type="button" class="btn btn-outline-teal btn-list-view-variant">Alle Aufgaben
+        </button>
+        <button id="boardMyTasks" type="button" class="btn btn-outline-teal"
+                style="border-bottom-right-radius: 6px; border-top-right-radius: 6px;">Eigene Aufgaben
+        </button>
+    </div>
+
+    <!-- Info Icon, rechts ausgerichtet -->
+    <img src="/assets/svg/information_icon.svg" alt="InfoButton" width="25px" height="25px"
+         style="cursor: pointer;" onclick="toggleInfoText()"/>
+
+    <!-- Info Text -->
+    <div id="infoText" class="infoBox" style="display: none; right: 0">
+        <p>Auf der Ansicht <b>Board</b> werden die Aufgaben in der Spalte des jeweiligen Status angezeigt. Sie können
+            entweder alle Aufgaben oder die Ihnen zugewiesenen Aufgaben anzeigen.
+            <br>Mithilfe des <b>HyperMove™</b> Systems können Aufgaben auch auf kleinen Bildschirmen einfach per
+            Drag-and-Drop verschoben werden. <br>
+            Per Klick auf eine Aufgabe werden die Details angezeigt. Durch Hovern über eine Aufgabe werden
+            Abhängigkeiten farblich dargestellt.<br>
+            <span style="color: #ff0000;">Rot</span> = Die aktuelle Aufgabe wird von der roten Aufgabe blockiert <br>
+            <span style="color: #00ff00;">Grün</span> = Die in grün markierten Aufgaben sind Unteraufgaben der aktuellen
+            Aufgabe <br>
+            <span style="color: #00adef;">Blau</span> = Die aktuelle Aufgabe ist eine Unteraufgabe der blau markierten
+            Aufgabe</p>
+    </div>
+</div>
+
+<div class="row boardBackground m-0 flex-nowrap">
+    <!--- todo div --->
+    <div class="col boardCategoryBackground d-flex flex-column" id="boardDiv_todo"
+         style="border-color: var(--todo)">
+        <p class="boardCategoryTitle">To Do</p>
+        <hr>
+        <div class="boardScrollableBackground  flex-nowrap overflow-auto">
+            <ul id="boardList_todo" class="list-group draggableListCustom" data-status="TODO">
+            </ul>
+        </div>
+    </div>
+
+    <!--- assigned div --->
+    <div class="col boardCategoryBackground d-flex flex-column" id="boardDiv_assigned"
+         style="border-color: var(--assigned)">
+        <p class="boardCategoryTitle">Zugewiesen</p>
+        <hr>
+        <div class="boardScrollableBackground  flex-nowrap overflow-auto">
+            <ul id="boardList_assigned" class="list-group draggableListCustom" data-status="ASSIGNED">
+
+            </ul>
+        </div>
+    </div>
+
+    <!--- in progress div --->
+    <div class="col boardCategoryBackground d-flex flex-column" id="boardDiv_inprogress"
+         style="border-color: var(--inprogress)">
+        <p class="boardCategoryTitle">In Bearbeitung</p>
+        <hr>
+        <div class="boardScrollableBackground  flex-nowrap overflow-auto">
+            <ul id="boardList_inprogress" class="list-group draggableListCustom" data-status="IN_PROGRESS">
+
+            </ul>
+        </div>
+    </div>
+
+    <!--- rtr div --->
+    <div class="col boardCategoryBackground d-flex flex-column" id="boardDiv_readytoreview"
+         style="border-color: var(--readytoreview)">
+        <p class="boardCategoryTitle">Ready to Review</p>
+        <hr>
+        <div class="boardScrollableBackground  flex-nowrap overflow-auto">
+            <ul id="boardList_readytoreview" class="list-group draggableListCustom" data-status="READY_TO_REVIEW">
+
+            </ul>
+        </div>
+
+    </div>
+
+    <!--- in review div --->
+    <div class="col boardCategoryBackground d-flex flex-column" id="boardDiv_inreview"
+         style="border-color: var(--inreview)">
+        <p class="boardCategoryTitle">In Review</p>
+        <hr>
+        <div class="boardScrollableBackground  flex-nowrap overflow-auto">
+            <ul id="boardList_inreview" class="list-group draggableListCustom" data-status="IN_REVIEW">
+
+            </ul>
+        </div>
+
+    </div>
+
+    <!--- done div --->
+    <div class="col boardCategoryBackground d-flex flex-column" id="boardDiv_done"
+         style="border-color: var(--completed)">
+        <p class="boardCategoryTitle">Fertig</p>
+        <hr>
+        <div class="boardScrollableBackground  flex-nowrap overflow-auto">
+            <ul id="boardList_done" class="list-group draggableListCustom" data-status="DONE">
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+

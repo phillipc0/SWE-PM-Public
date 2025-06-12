@@ -1,0 +1,1223 @@
+@import "colors.css";
+
+/*Remove edge password icon*/
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+
+/* Dark Mode Variables */
+body.dark-mode {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+
+    --light-gray: #2a2a2a;
+    --dark-gray: #d1d1d1;
+    --black: #f5f5f5;
+    --teal: #5ad3c1;
+    --teal-light: #46b1a1;
+    --white: #1e1e1e;
+    --middle-gray: #1f1f1f;
+    --input-border: #555;
+    --input-hover-fill: #333;
+    --warning: #ff6b6b;
+    --warning-light: #ff8b8b;
+}
+
+body.dark-mode .navbar-main {
+    background-color: #1f1f1f; /* Dark navbar background */
+    --bs-navbar-color: #e0e0e0; /* Adjusted text color */
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e; /* Dark mode card background */
+    color: #e0e0e0; /* Light card text */
+    border-color: #333; /* Adjust card border */
+}
+
+body.dark-mode #projectManager {
+    color: #e0e0e0 !important; /* Helle Farbe für den Dark Mode */
+}
+
+body.dark-mode .btn-teal {
+    background-color: #2a9d8f; /* Adjust button background */
+    color: #ffffff; /* Light button text */
+}
+
+body.dark-mode .progress-bar {
+    color: #ffffff; /* Text color inside progress bars */
+}
+
+body.dark-mode .modal-cust .modal-content {
+    background-color: #242424; /* Dark modal background */
+    color: #e0e0e0; /* Light text color */
+}
+
+/* Other specific elements */
+body.dark-mode .alert-warning {
+    background-color: #333; /* Adjust alert background */
+    color: #ffcc00; /* Warning text color */
+}
+
+body.dark-mode .form-control {
+    color: #e0e0e0;
+    background: #333;
+    border-color: #555;
+}
+
+body.dark-mode .form-control::placeholder {
+    color: #a0a0a0;
+}
+
+body.dark-mode .form-control:disabled {
+    background: #202020;
+}
+
+body.dark-mode #mailboxImage,
+body.dark-mode #projectselection,
+body.dark-mode .user-dropdown img,
+body.dark-mode #darkModeIcon,
+body.dark-mode #personAddSvg,
+body.dark-mode #personSvg,
+body.dark-mode #createProjectBtnSvg,
+body.dark-mode #darkModeIcon,
+body.dark-mode #addTaskSvg,
+body.dark-mode #zieldatumSvg,
+body.dark-mode #inboxesFillSvg,
+body.dark-mode #notificationWarningIcon,
+body.dark-mode #passwordEye,
+body.dark-mode #newPasswordEye,
+body.dark-mode #confirmPasswordEye,
+body.dark-mode img[alt="InfoButton"] {
+    filter: brightness(0) invert(1); /* Icon auf Weiß ändern */
+}
+
+body.dark-mode #detailsGeneratePW,
+body.dark-mode #generatePW {
+    border: #555;
+}
+
+.infoBox {
+    position: absolute;
+    top: 35px;
+    background-color: white;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 7px;
+    padding: 10px;
+    max-width: 500px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+    z-index: 10;
+}
+
+body.dark-mode .infoBox {
+    background-color: #333333;
+    border: 1px solid var(--gray);
+}
+
+
+h1 {
+    text-align: center;
+}
+
+.navbar-main {
+    background-color: var(--light-gray);
+    --bs-navbar-color: var(--black);
+    --bs-navbar-hover-color: var(--teal);
+    --bs-navbar-active-color: var(--teal-light);
+    --bs-navbar-disabled-color: var(--black);
+
+    --bs-navbar-brand-color: var(--teal);
+    --bs-navbar-brand-hover-color: var(--teal-light);
+
+    font-weight: bold;
+}
+
+#notificationContainer {
+    position: fixed;
+    top: 75px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
+    color: var(--black);
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border: 2px solid var(--teal);
+}
+
+.notification img {
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+
+.notification.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.calendar-links {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.calendar-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s, filter 0.2s; /* Weiche Übergänge für den Hover-Effekt */
+}
+
+.calendar-icon:hover {
+    transform: scale(1.2); /* Vergrößert das Icon leicht bei Hover */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* Fügt einen Schatten hinzu */
+}
+
+/* Farbanpassung für die Seitenzahlen in den Datatables */
+.pagination .page-link {
+    color: var(--teal); /* Textfarbe */
+}
+
+.pagination .page-link:hover {
+    color: white; /* Textfarbe beim Hover */
+    background-color: var(--teal-light); /* Hintergrundfarbe beim Hover */
+    border-color: var(--teal-light); /* Randfarbe beim Hover */
+}
+
+.pagination .page-item.active .page-link {
+    color: white; /* Textfarbe für aktiven Zustand */
+    background-color: var(--teal); /* Hintergrundfarbe für aktiven Zustand */
+    border-color: var(--teal); /* Randfarbe für aktiven Zustand */
+}
+
+
+/* Buttons */
+.btn-check:checked + .btn {
+    color: white;
+    background-color: var(--teal);
+    border-color: var(--teal);
+}
+
+.btn-check:checked:hover + .btn {
+    color: white;
+    background-color: var(--teal);
+    border-color: var(--teal);
+}
+
+.btn-check:hover + .btn {
+    color: var(--white);
+    background-color: var(--teal-light);
+    border-color: var(--teal-light);
+}
+
+.btn-check + .btn {
+    color: black;
+    background-color: var(--white);
+    border-color: var(--teal);
+}
+
+body.dark-mode .btn-check:checked + .btn {
+    background-color: var(--teal); /* Change background color for selected */
+    color: var(--black); /* Adjust text color for better contrast */
+    border-color: var(--teal);
+}
+
+body.dark-mode .btn-check + .btn {
+    background-color: #333333; /* Dark background for non-selected */
+    color: #d1d1d1; /* Light color for non-selected text */
+    border-color: var(--teal-light); /* Light border for non-selected */
+}
+
+body.dark-mode .btn-check:hover + .btn {
+    background-color: var(--teal-light); /* Slightly lighter color on hover */
+    color: #ffffff; /* Ensure good contrast on hover */
+}
+
+body.dark-mode .list-group-item {
+    background-color: #494949; /* Dark background for list items */
+    color: #d1d1d1; /* Light text color for list items */
+    border-color: #676767; /* Dark border color for list items */
+}
+
+body.dark-mode .form-select {
+    background-color: #333333; /* Dark background for select elements */
+    color: #d1d1d1; /* Light text color for select elements */
+    border-color: #333; /* Dark border color for select elements */
+}
+
+.btn-teal {
+    background-color: var(--teal);
+    color: var(--white);
+}
+
+.btn-teal:hover {
+    background-color: var(--teal-light);
+    color: var(--white);
+}
+
+.btn-teal:active:focus {
+    color: var(--teal);
+}
+
+
+.btn-important {
+    background-color: var(--warning);
+    color: var(--white);
+}
+
+.btn-important:hover {
+    background-color: var(--warning-light);
+    color: var(--white);
+}
+
+
+.btn-outline-gray {
+    border: 2px solid var(--gray);
+    margin-bottom: 2px;
+}
+
+.btn-outline-gray:hover {
+    border-color: var(--dark-gray);
+}
+
+.btn-outline-teal {
+    border: 2px solid var(--teal-light);
+    color: var(--teal-light);
+}
+
+.btn-outline-teal:hover {
+    background-color: var(--teal);
+    color: var(--white);
+}
+
+.btn-outline-teal:active:focus {
+    color: var(--teal);
+}
+
+.btn-createproject {
+    outline: none;
+    border: 0;
+    box-shadow: none;
+    background-color: transparent;
+
+}
+
+.eye-btn {
+    position: absolute;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.eye-btn > img {
+    opacity: 0.5;
+}
+
+/* Cards */
+.card-gray {
+    background-color: var(--light-gray);
+    color: var(--black);
+    border: 1px solid var(--gray);
+}
+
+.card-teal {
+    background-color: var(--teal-light);
+    color: var(--white);
+    border: 1px solid var(--dark-gray);
+
+}
+
+.text-teal {
+    color: var(--teal);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.members-count {
+    white-space: nowrap;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.card {
+    margin: 10px;
+    background-color: #f7f7f7;
+}
+
+/* Tooltips */
+.tooltip-teal {
+    --bs-tooltip-bg: var(--teal-light);
+    --bs-tooltip-color: var(--black);
+    border: 1px solid var(--black);
+    border-radius: 7px;
+    box-shadow: 0 0 4px var(--black);
+    opacity: 1 !important;
+}
+
+
+.tooltip-white {
+    --bs-tooltip-bg: var(--white);
+    --bs-tooltip-color: var(--black);
+    border: 1px solid var(--black);
+    border-radius: 7px;
+    box-shadow: 0 0 4px var(--black);
+    opacity: 1 !important;
+}
+
+.tooltip-gray {
+    --bs-tooltip-bg: var(--light-gray);
+    --bs-tooltip-color: var(--black);
+    border: 1px solid var(--black);
+    border-radius: 7px;
+    box-shadow: 0 0 4px var(--black);
+    opacity: 1 !important;
+}
+
+
+.progressBar {
+    background-color: var(--teal)
+}
+
+
+/*Login Input*/
+div.input-container {
+    margin: 0 auto 1.5rem auto;
+    position: relative;
+    width: 100%;
+}
+
+.input-label {
+    display: inline;
+}
+
+.input-label > input {
+    border: none;
+    border-bottom: 0.125rem solid var(--input-border);
+    width: 100%;
+    height: 3rem;
+    font-size: 1.0625rem;
+    padding-left: 0.875rem;
+    line-height: 147.6%;
+    padding-top: 0.9rem;
+    padding-bottom: 0.3rem;
+}
+
+.input-label > input:focus {
+    outline: none;
+}
+
+.input-label > .input-label-text {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.85rem;
+    line-height: 147.6%;
+    color: var(--black);
+    transition: top .25s;
+}
+
+.input-label > input:hover {
+    background: var(--input-hover-fill);
+    border-color: var(--teal-light);
+}
+
+.input-label > input:focus + .input-label-text,
+.input-label > input:valid + .input-label-text {
+    top: 0;
+    font-size: 0.9375rem;
+    margin-bottom: 32px;;
+}
+
+.input-label:not(.omrs-input-danger) > input:focus + .input-label-text {
+    color: var(--input-accent);
+}
+
+.input-label:not(.omrs-input-danger) > input:focus {
+    border-color: var(--input-border);
+}
+
+
+.modal-custom-style .modal-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+#enterValueBtn:hover, #editBtn:hover, #deleteBtn:hover {
+    border-color: var(--dark-gray);
+}
+
+
+@media (max-width: 768px) {
+    .button-container {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* user-dropdown und mailbox-dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    white-space: nowrap;
+}
+
+.dropdown-content {
+    text-align: center;
+    display: none;
+    position: absolute;
+    background-color: var(--light-gray);
+    padding: 10px;
+    right: 0;
+    top: 100%;
+    outline: 1px solid var(--teal-light);
+    border-radius: 5px;
+    cursor: default;
+    z-index: 1000; /* Höherer z-index-Wert */
+}
+
+.dropdown-content .documentation-link {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-content a {
+    color: black;
+    display: block;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+}
+
+.dropdown-content a:hover {
+    color: var(--teal);
+}
+
+.userSelectList {
+    overflow-y: scroll;
+    max-height: 250px;
+}
+
+.userListSelected,
+.managerListSelected,
+.blockedByTaskSelected,
+.subtaskSelected,
+.parentTaskSelected {
+    background-color: var(--light-gray);
+    color: var(--teal);
+    font-weight: bold;
+}
+
+body.dark-mode .userListSelected,
+body.dark-mode .managerListSelected,
+body.dark-mode .blockedByTaskSelected,
+body.dark-mode .subtaskSelected,
+body.dark-mode .parentTaskSelected {
+    background-color: #333333; /* Dark background */
+    color: #5ad3c1; /* Light text color */
+    font-weight: bold;
+}
+
+.form-boarder {
+    border: 2px solid var(--light-gray);
+    border-radius: 5px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal-cust {
+    --bs-modal-width: 650px;
+}
+
+.text-error {
+    color: var(--warning);
+
+}
+
+
+.subNavLink {
+    color: var(--dark-gray);
+
+}
+
+.subNavLink:active:focus {
+    color: var(--teal);
+
+}
+
+.subNavLink:hover {
+    color: var(--teal-light);
+
+}
+
+.subNavBarActive {
+    color: var(--teal);
+    font-weight: bold;
+}
+
+.project-section {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+}
+
+.project-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.project-divider {
+    width: 50%;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+}
+
+.notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.notification-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.notification-title:hover {
+    text-decoration: underline;
+}
+
+.notification-details {
+    display: flex;
+    gap: 10px;
+}
+
+.notification-priority {
+    font-size: 14px;
+    font-weight: normal;
+    color: #ff4d4d; /* Color for high priority */
+}
+
+.notification-duedate {
+    font-size: 14px;
+    color: #666;
+}
+
+.notification-item:hover {
+    background-color: #e9e9e9;
+}
+
+.notification-urgent {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+    }
+}
+
+.addProjectUserBtn {
+    border-radius: 10px 10px 0 0
+}
+
+.boardBackground {
+    background-color: var(--middle-gray);
+    min-height: 200px;
+    height: calc(90vh - 200px);
+    border-radius: 10px;
+    overflow-x: visible;
+    overflow-y: hidden;
+}
+
+.boardCategoryBackground {
+    min-width: 420px;
+    width: 450px;
+    zoom: 90%;
+    margin: 10px;
+    background-color: var(--light-gray);
+    border: 5px solid;
+
+    min-height: 90%;
+    border-radius: 10px;
+    transition: min-width 0.5s ease;
+}
+
+.categoryFastMoveShow {
+    opacity: 100;
+}
+
+
+.boardScrollableBackground {
+    min-height: 200px;
+    height: 95%;
+
+    overflow: auto;
+}
+
+.boardCategoryTitle {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    height: 75px;
+
+}
+
+.draggableHighlight {
+    background-color: #f0f0f0;
+    border: 2px dashed #ccc;
+}
+
+body.dark-mode .draggableHighlight {
+    background-color: #333333;
+    border: 2px dashed #555;
+}
+
+.draggableListCustom {
+    height: calc(100% - 20px);
+    overflow-y: visible;
+    overflow-x: hidden;
+}
+
+.hyperMove {
+    max-width: 180px;
+    margin: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    height: 50px;
+    text-align: center;
+    vertical-align: center;
+
+}
+
+.hyperMoveShow {
+    opacity: 100;
+}
+
+
+#createTaskButton,
+#createTaskButton:active,
+#createTaskButton:focus {
+    border: none;
+}
+
+.taskPreviewBoardItem {
+    min-height: 10px;
+}
+
+ul.draggableListCustom li.taskPreviewBoardItem {
+    min-height: 100px;
+}
+
+
+.taskItemActiveDragging {
+    content-visibility: hidden;
+
+    height: 20px;
+}
+
+
+.boardTaskDefault {
+    border: 3px solid var(--light-gray) !important; /* Keine sichtbare Umrandung im Normalzustand */
+    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(1); /* Normale Größe */
+    box-shadow: none; /* Kein Schatten im Normalzustand */
+}
+
+.boardSubTaskHighlight {
+    border: 3px solid #00ff00 !important; /* Grüne Umrandung für Subtasks */
+    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.boardParentTaskHighlight {
+    border: 3px solid #00adef !important; /* Blaue Umrandung für Parent Tasks */
+    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 173, 255, 0.2); /* Leichtes blaues Glühen */
+}
+
+.boardBlockedByHighlight {
+    border: 3px solid #ff0000 !important; /* Rote Umrandung für blockierte Aufgaben */
+    transition: border 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 0, 0, 0.2); /* Leichtes rotes Glühen */
+}
+
+/*List view*/
+
+.table thead th {
+    background-color: var(--teal);
+    color: var(--white);
+    position: relative;
+    font-weight: bold;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 10px;
+}
+
+
+.table-bordered > tbody > tr {
+    border-width: 1px;
+    border-color: #dee2e6;
+    border-bottom-style: solid;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    .table thead th, .table tbody td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+.table td, .table th {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+.title-with-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.title-with-button span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.btn-link {
+    text-decoration: none;
+    color: var(--dark-gray);
+    font-size: 16px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.btn-link:hover {
+    color: var(--teal);
+    text-decoration: underline;
+}
+
+table tr {
+    margin: 0;
+    padding: 0;
+}
+
+.white-row {
+    background-color: var(--white) !important;
+}
+
+.light-gray-row {
+    background-color: var(--light-gray) !important;
+}
+
+.sort-icon {
+    font-size: 0.75rem; /* Macht die Symbole kleiner */
+    margin-left: 5px;
+    position: absolute;
+    right: 10px; /* Positioniert die Symbole am rechten Rand */
+}
+
+th {
+    position: relative; /* Ermöglicht die Positionierung der Sortiersymbole im `th` */
+    cursor: pointer; /* Zeigt den Cursor als Hand an, wenn der Benutzer auf die Spaltenüberschrift klickt */
+    padding-right: 20px; /* Platz für das Sortiersymbol auf der rechten Seite lassen */
+}
+
+
+.toggle-arrow {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+    display: inline-block; /* Ensure the button stays inline with the text */
+    vertical-align: middle; /* Aligns the button vertically with text */
+    margin-right: 5px; /* Adds space between the button and text */
+    padding: 0; /* Ensure no extra padding affects the alignment */
+}
+
+body.dark-mode .toggle-arrow {
+    color: #f5f5f5; /* Light color for dark mode */
+}
+
+.list-text-color {
+    color: var(--dark-gray);
+}
+
+body.dark-mode .list-text-color {
+    color: #f5f5f5; /* Light color for dark mode */
+}
+
+.list-id-text-color {
+    color: gray;
+}
+
+body.dark-mode .list-id-text-color {
+    color: #d1d1d1 !important; /* Light color for dark mode */
+}
+
+body.dark-mode .boardTaskText {
+    color: #f5f5f5 !important; /* Light color for dark mode */
+}
+
+.row-clickable {
+    cursor: pointer;
+}
+
+.btn-list-view-variant {
+    background-color: var(--teal);
+    color: var(--white);
+}
+
+/* Standard Button Hover-Effekt */
+button.btn {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* Icons für Sortierrichtung */
+/*button span {*/
+/*    margin-left: 5px;*/
+/*    font-size: 12px;*/
+/*}*/
+
+.btn-sort-project {
+    border: 2px solid var(--teal-light);
+    border-radius: 5px;
+    background-color: var(--white);
+    color: var(--teal-light);
+}
+
+.btn-sort-project:hover {
+    border: 2px solid var(--teal-light);
+    border-radius: 5px;
+    background-color: var(--teal-light);
+    color: var(--white);
+}
+
+.btn-sort-project.active-sort {
+    border: 2px solid var(--teal);
+    border-radius: 5px;
+    background-color: var(--teal);
+    color: var(--white);
+}
+
+.btn-sort-project.active-sort:hover {
+    border: 2px solid var(--teal-light);
+    border-radius: 5px;
+    background-color: var(--teal-light);
+    color: var(--white);
+}
+
+body.dark-mode .btn-sort-project.active-sort,
+body.dark-mode .btn-sort-project:hover,
+body.dark-mode .btn-sort-project.active-sort:hover {
+    color: #FFFFFF;
+}
+
+.sort-container {
+    justify-content: flex-start;
+    margin: 10px 0px;
+    text-align: center;
+}
+
+.btn-sort-project {
+    margin: 0;
+    padding: 8px 12px;
+}
+
+/* Remove the right border of the toggle column (first column) */
+#tasksTable td:first-child,
+#tasksTable th:first-child {
+    border-right: none;
+}
+
+/* Remove the left border of the title column (second column) */
+#tasksTable td:nth-child(2),
+#tasksTable th:nth-child(2) {
+    border-left: none;
+}
+
+body.dark-mode #tasksTable {
+    border-color: #3C4048FF;
+}
+
+/* Reduce the padding and margin of the toggle button */
+#tasksTable .toggle-arrow {
+    margin-right: 5px;
+    padding: 0;
+}
+
+/* Reduce the padding of the title cell to bring it closer to the toggle button */
+#tasksTable td:nth-child(2) {
+    padding-left: 15px;
+}
+
+.projectleiterBackground {
+    background-color: var(--bs-secondary-bg);
+    opacity: 1
+}
+
+body.dark-mode .projectleiterBackground {
+    background-color: #202020;
+}
+
+/* Element-Spezifische Anpassungen */
+body.dark-mode h1 {
+    color: #ffffff;
+}
+
+body.dark-mode .navbar-main {
+    background-color: #1f1f1f;
+    --bs-navbar-color: #f5f5f5;
+    --bs-navbar-hover-color: #5ad3c1;
+    --bs-navbar-active-color: #46b1a1;
+    --bs-navbar-disabled-color: #aaaaaa;
+}
+
+body.dark-mode #notificationContainer {
+    background-color: #2a2a2a;
+}
+
+body.dark-mode .notification {
+    background-color: #333333;
+    color: #f5f5f5;
+    border-color: #5ad3c1;
+}
+
+body.dark-mode .calendar-icon {
+    filter: invert(1);
+}
+
+body.dark-mode .pagination .page-link {
+    color: #5ad3c1;
+}
+
+body.dark-mode .pagination .page-link:hover {
+    color: #1f1f1f;
+    background-color: #46b1a1;
+    border-color: #46b1a1;
+}
+
+body.dark-mode .pagination .page-item.active .page-link {
+    color: #1f1f1f;
+    background-color: #5ad3c1;
+    border-color: #5ad3c1;
+}
+
+body.dark-mode .btn-check + .btn {
+    color: #f5f5f5;
+    background-color: #333333;
+    border-color: #5ad3c1;
+}
+
+body.dark-mode .btn-teal {
+    background-color: #46b1a1;
+    color: #FFFFFF;
+}
+
+body.dark-mode .btn-important {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-outline-gray {
+    border-color: #d1d1d1;
+}
+
+body.dark-mode .btn-outline-teal {
+    border-color: #46b1a1;
+    color: #46b1a1;
+}
+
+body.dark-mode .btn-outline-teal:hover {
+    border-color: #46b1a1;
+    color: #FFFFFF;
+}
+
+body.dark-mode .btn-list-view-variant {
+    background-color: var(--teal);
+    color: #FFFFFF;
+}
+
+body.dark-mode .card-gray {
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+    border-color: #d1d1d1;
+}
+
+body.dark-mode .card-teal {
+    background-color: #46b1a1;
+    color: #FFFFFF;
+    border-color: #808080;
+}
+
+body.dark-mode .tooltip-teal {
+    --bs-tooltip-bg: #46b1a1;
+    --bs-tooltip-color: #f5f5f5;
+    border-color: #f5f5f5;
+}
+
+body.dark-mode .tooltip-white {
+    --bs-tooltip-bg: #2a2a2a;
+    --bs-tooltip-color: #f5f5f5;
+    border-color: #d1d1d1;
+}
+
+body.dark-mode .tooltip-gray {
+    --bs-tooltip-bg: #333333;
+    --bs-tooltip-color: #f5f5f5;
+    border-color: #d1d1d1;
+}
+
+body.dark-mode .input-label:not(.omrs-input-danger) > .input-label-text {
+    color: #f5f5f5;
+}
+
+body.dark-mode .dropdown-content {
+    background-color: #2a2a2a;
+    outline-color: #46b1a1;
+}
+
+body.dark-mode .dropdown-content a {
+    color: #f5f5f5;
+}
+
+body.dark-mode .dropdown-content a:hover {
+    color: #5ad3c1;
+}
+
+body.dark-mode .form-boarder {
+    border-color: #333333;
+}
+
+body.dark-mode .text-error {
+    color: #ff6b6b;
+}
+
+body.dark-mode .project-section {
+    background-color: #1f1f1f;
+    color: #f5f5f5;
+    border-color: #333333;
+}
+
+body.dark-mode .project-section h2 {
+    color: #f5f5f5;
+}
+
+body.dark-mode .notification-item {
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+    border-color: #333333;
+}
+
+body.dark-mode .notification-title {
+    color: #5ad3c1;
+}
+
+body.dark-mode .notification-duedate {
+    color: #aaaaaa;
+}
+
+body.dark-mode .boardBackground {
+    background-color: #1f1f1f;
+}
+
+body.dark-mode .boardCategoryBackground {
+    background-color: #2a2a2a;
+    border-color: #333333;
+}
+
+body.dark-mode .table thead th {
+    background-color: #46b1a1;
+    color: #ffffff;
+}
+
+body.dark-mode .table-bordered > tbody > tr {
+    border-color: #333333;
+}
+
+body.dark-mode .btn-link {
+    color: #d1d1d1;
+}
+
+body.dark-mode .btn-link:hover {
+    color: #5ad3c1;
+}
+
+body.dark-mode .white-row {
+    background-color: #333333 !important;
+}
+
+body.dark-mode .light-gray-row {
+    background-color: #2a2a2a !important;
+}
+
+body.dark-mode .sort-icon {
+    color: #d1d1d1;
+}
+
+body.dark-mode th {
+    color: #f5f5f5;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projio - Anmeldung</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/x-icon" sizes="64x64" href="favicon.ico">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <link href="libraries/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/custom.css">
+    </head>
+    <body class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 mt-5">
+                <div style="text-align: center; margin: 15px;">
+                    <img src="assets/img/logo.png"
+                         style="width: 20%; max-width: 80px; min-width: 50px; height: auto" alt="Logo">
+                    <h3 class="card-title">Projio Anmeldung</h3>
+                </div>
+                <div class="card card-gray">
+                    <div class="card-body">
+                        <form th:action="@{/login}" method="post" id="loginForm">
+                            <fieldset>
+                                <div class="input-container">
+                                    <label class="input-label">
+                                        <input required type="text" class="form-control" id="username" name="username"
+                                               onkeyup="return handleKeyPress(event, 'password')">
+                                        <span class="input-label-text">E-Mail Adresse</span>
+                                    </label>
+                                </div>
+                                <div class="input-container">
+                                    <label class="input-label">
+                                        <input required type="password" class="form-control" id="password"
+                                               name="password"
+                                               onkeyup="passwordEnterKey(event)">
+                                        <span class="input-label-text">Passwort
+                                        </span>
+                                        <button type="button" class="btn eye-btn" id="togglePassword"
+                                                style="top: 50%; right: 5px; transform: translateY(-50%);"
+                                                tabindex="-1">
+                                            <img src="assets/svg/eye.svg" alt="Toggle-Password" id="passwordEye">
+                                        </button>
+                                    </label>
+                                </div>
+                                <div id="errorField">
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-teal form-control">
+                                        Einloggen
+                                    </button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="libraries/js/bootstrap.min.js"></script>
+        <script src="assets/js/login.js"></script>
+        <script src="assets/js/utility.js"></script>
+    </body>
+</html>

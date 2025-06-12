@@ -1,0 +1,232 @@
+<div>
+    <div class="row mb-3 mt-3 text-center h-100" style="flex-grow: 1;" id="projectDetails_div">
+        <div class="col-md-6 themed-grid-col mb-3">
+            <div class="form-group">
+                <label for="usersearch" class="fw-bold">Mitarbeiter im Projekt</label>
+                <input type="text" id="usersearch" class="form-control mb-3"
+                       placeholder="Mitarbeiter suchen...">
+                <ul class="list-group userSelectList" id="userListBTNs"
+                    style="border-bottom-left-radius: 0rem; border-bottom-right-radius: 0rem"></ul>
+                <ul class="list-group userSelectList" id="userList"
+                    style="border-top-left-radius: 0rem; border-top-right-radius: 0rem">
+                </ul>
+                <p id="projectEmployeeCount"></p>
+            </div>
+        </div>
+        <div class="col-md-6 themed-grid-col mb-3">
+            <form id="projectEditForm">
+                <div>
+                    <label for="project_projecttitle" class="fw-bold">
+                        Projekttitel
+                    </label>
+                    <input class="form-control" type="text" name="name" id="project_projecttitle" disabled>
+                </div>
+                <div id="Projektmanageranzeige">
+                    <label for="projectManager_name" class="fw-bold">
+                        Projektleiter
+                    </label>
+                    <span class="form-control text-start projectleiterBackground" type="text" id="projectManager_name"
+                          disabled></span>
+                </div>
+                <div class="form-group" id="Projektmanagerauswahl" hidden="hidden">
+                    <label class="fw-bold" for="managersearch">Projektleiterauswahl</label>
+                    <input type="text" id="managersearch" class="form-control mb-3"
+                           placeholder="Projektleiter suchen...">
+                    <ul class="list-group userSelectList" id="managerList"></ul>
+                </div>
+                <div>
+                    <label for="project_createdOn" class="fw-bold">
+                        Startdatum
+                    </label>
+                    <input class="form-control" id="project_createdOn">
+                </div>
+                <div>
+                    <label for="project_description" class="fw-bold">
+                        Projektbeschreibung
+                    </label>
+                    <textarea class="form-control" name="description" id="project_description"
+                              maxlength="1024"
+                              disabled style="resize: none; overflow: hidden;" oninput="autoResize(this)"></textarea>
+                </div>
+                <p id="changeDescription_status" class="text-error"></p>
+                <div id="superwichtigebuttons" class="m-3">
+                    <button class="btn btn-secondary" id="editProjectButton" type="button">
+                        Projekt bearbeiten
+                    </button>
+                    <input id="saveProjectButton" type="submit" hidden="hidden" class="btn btn-secondary"
+                           form="projectEditForm"
+                           value="Projekt speichern">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Details Create User Modal -->
+<div class="modal modal-cust fade" id="detailsCreateUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nutzer anlegen und hinzufügen</h5>
+                <button id="detailsCreateUserModalClose" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="detailsUserCreateForm">
+                    <div class="mb-3">
+                        <label for="detailsCreateUser_name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" id="detailsCreateUser_name"
+                               pattern='[a-z A-Z]+' required maxlength="30">
+                    </div>
+                    <div class="mb-3">
+                        <label for="detailsCreateUser_email" class="form-label">E-Mail</label>
+                        <input type="email" class="form-control" name="emailAddress" id="detailsCreateUser_email"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="detailsCreateUser_password" class="form-label">Passwort</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="password" id="detailsCreateUser_password"
+                                   required readonly>
+                            <button type="button" class="btn-teal input-group-text" id="detailsGeneratePW">Passwort
+                                generieren
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Rolle</label>
+                        <div class="input-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" value="EMPLOYEE" class="btn-check" name="role" id="detailsEmployee"
+                                   autocomplete="off"
+                                   checked>
+                            <label style="border-radius: 0.375rem 0 0 0.375rem;
+        border-left-width: 1px; " class="btn btn-outline-primary form-control input-group-text left-rounded"
+                                   for="detailsEmployee">Mitarbeiter</label>
+
+                            <input type="radio" value="PROJECT_MANAGER" class="btn-check" name="role"
+                                   id="detailsProjectManager"
+                                   autocomplete="off">
+                            <label class="btn btn-outline-primary form-control input-group-text"
+                                   for="detailsProjectManager">Projektmanager</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="align-content: center">
+                <p id="detailsCreateUser_status" class="text-error"></p>
+                <input id="detailsConfirmUserCreateForm_btn" type="submit" class="btn btn-teal float-end"
+                       form="detailsUserCreateForm"
+                       value="Nutzer erstellen und zum Projekt hinzufügen">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit user modal -->
+<div class="modal modal-cust fade" id="editUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nutzer bearbeiten</h5>
+                <button id="editUserModalClose" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="userEditForm">
+                    <div class="mb-3">
+                        <label for="editUser_name" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="name" id="editUser_name"
+                               pattern='[a-z A-Z]+' required maxlength="30">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUser_email" class="form-label">E-Mail</label>
+                        <input type="email" class="form-control" name="emailAddress" id="editUser_email"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Rolle</label>
+                        <div class="input-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" value="EMPLOYEE" class="btn-check" name="role" id="editEmployee"
+                                   autocomplete="off">
+                            <label style="border-radius: 0.375rem 0 0 0.375rem;
+        border-left-width: 1px; " class="btn btn-outline-primary form-control input-group-text left-rounded"
+                                   for="editEmployee">Mitarbeiter</label>
+                            <input type="radio" value="PROJECT_MANAGER" class="btn-check" name="role"
+                                   id="editProjectManager"
+                                   autocomplete="off">
+                            <label class="btn btn-outline-primary form-control input-group-text"
+                                   for="editProjectManager">Projektmanager</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="align-content: center">
+                <p id="editUser_status" class="text-error"></p>
+                <input id="confirmUserEditForm_btn" type="submit" class="btn btn-teal float-end"
+                       form="userEditForm"
+                       value="Nutzer sichern">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add user modal -->
+<div class="modal modal-cust fade" id="addUserModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nutzer hinzufügen</h5>
+                <button id="addUserModalClose" type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="userAddForm">
+                    <div class="form-group">
+                        <label for="addusersearch">Mitarbeiterauswahl</label>
+                        <input type="text" id="addusersearch" class="form-control mb-3"
+                               placeholder="Mitarbeiter suchen...">
+                        <ul class="list-group userSelectList" id="addUserList">
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="align-content: center">
+                <p id="addUser_status" class="text-error"></p>
+                <input id="confirmUserAddForm_btn" type="submit" class="btn btn-teal float-end"
+                       form="userAddForm"
+                       value="Nutzer hinzufügen">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade modal-cust" id="deleteProjectModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProjectModalLabel">Projekt Löschen Bestätigen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteConfirmationText">Sind Sie sicher, dass Sie das Projekt löschen wollen?</p>
+                <p>Bitte geben Sie den aktuellen Projektnamen zur Bestätigung ein:</p>
+
+                <!-- Error message div -->
+                <div id="error-message" class="text-error" style="display: none;">
+                    Projektname stimmt nicht überein.
+                </div>
+
+                <input type="text" id="projectNameInput" class="form-control"
+                       placeholder="Projektnamen eingeben">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                <button type="button" id="confirmDeleteProjectButton" class="btn btn-important float-end">
+                    Projekt löschen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

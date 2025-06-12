@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Projio - Projektdetails</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/x-icon" sizes="64x64" href="/favicon.ico">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <link href="/libraries/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/css/custom.css" rel="stylesheet">
+
+        <style>
+            /* Einfache CSS für die Navigation */
+            nav {
+                margin-bottom: 20px;
+            }
+
+            nav a {
+                margin: 0 10px;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="navbar-placeholder"></div>
+
+        <nav class="d-flex align-items-center" id="viewNavbar" style="margin: 0px 30px">
+            <button href="?view=board" id="nav-board" class="btn subNavLink">Board</button>
+            <button href="?view=list" id="nav-list" class="btn subNavLink">Liste</button>
+            <button href="?view=details" id="nav-details" class="btn subNavLink">Details</button>
+
+            <label for="taskFilterInput" id="taskFilterLabel" class="mb-0"></label>
+            <input placeholder="Aufgaben filtern" type="text" id="taskFilterInput" class="form-control"
+                   style="max-width: 200px;">
+
+            <!-- ToDo: Move button to end of nav and change the size-->
+            <button class="align-self-end subNavLink btn" data-bs-toggle="modal"
+                    data-bs-target="#createTaskModal" id="createTaskButton" title="Aufgabe erstellen">
+                <img src="/assets/svg/add-task.svg" alt="Aufgabe erstellen" id="addTaskSvg" width="25px" height="25px">
+            </button>
+        </nav>
+
+        <!-- Container für gestapelte Benachrichtigungen -->
+        <div id="notificationContainer"></div>
+
+        <div id="content" style="margin: 0px 30px">
+            <!-- Der Inhalt wird hier dynamisch geladen -->
+        </div>
+    </body>
+
+
+    <!-- Create Task modal-->
+    <div class="modal modal-cust fade" id="createTaskModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createTaskLabel">Aufgabe erstellen</h5>
+
+                    <!-- Info Icon -->
+                    <img src="/assets/svg/information_icon.svg" alt="InfoButton" width="25px" height="25px"
+                         style="cursor: pointer; margin-left: 10px;" onclick="toggleInfoTextCreateTask()"/>
+
+                    <!-- Info Text -->
+                    <div id="infoTextCreateTask" class="infoBox" style="display: none; top: 45px">
+                        <p><span style="color: #dc3545;">*</span> Pflichtfelder <br>Der Status beim Erstellen einer
+                            Aufgabe ist standardmäßig <b>To Do</b>. Es können Mitarbeiter einer Aufgabe zugewiesen
+                            und abhängige Aufgaben festgelegt werden.</p>
+                    </div>
+
+                    <button type="button" id="createTaskModalClose" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="TaskCreateForm">
+                        <div class="row">
+                            <!-- Linke Spalte -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="createTask_name" class="form-label">Titel <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="title" id="createTask_name"
+                                           required maxlength="100">
+                                    <!-- ToDo: Implement warning if user tries to enter more than 100-->
+                                </div>
+                                <div class="mb-3">
+                                    <label for="createTask_description" class="form-label">Beschreibung <span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="description" id="createTask_description"
+                                              maxlength="1000" rows="4" cols="50" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="createTask_status" class="form-label">Status</label>
+                                    <input type="text" class="form-control" id="createTask_status" value="To Do"
+                                           disabled
+                                           required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="createTask_dueDate" class="form-label">Fälligkeitsdatum <span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="dueDate" id="createTask_dueDate"
+                                           required>
+                                </div>
+                            </div>
+
+                            <!-- Rechte Spalte -->
+                            <div class="col-md-6">
+                                <div class="form-group p-3 mb-3 form-boarder">
+                                    <label for="userSearchTask" class="form-label">Mitarbeiter zuweisen</label>
+                                    <input type="text" id="userSearchTask" class="form-control mb-3"
+                                           placeholder="Mitarbeiter suchen...">
+                                    <ul class="list-group userSelectList" id="userListTaskView"></ul>
+                                    <p id="userCountInfoTask">Kein Mitarbeiter ausgewählt</p>
+                                </div>
+                                <div class="form-group p-3 mb-3 form-boarder"
+                                     id="taskSelectionField">
+                                    <label for="relatedTaskSearch" class="form-label" id="relatedTaskLabel">
+                                        Wähle eine übergeordnete Aufgabe
+                                    </label>
+                                    <input type="text" class="form-control mb-3" id="relatedTaskSearch"
+                                           placeholder="Übergeordnete Aufgabe suchen...">
+                                    <ul class="list-group userSelectList" id="relatedTaskListView"></ul>
+                                    <p id="taskCountInfo">Keine übergeordnete Aufgabe ausgewählt</p>
+                                </div>
+                                <div class="form-group p-3 mb-3 form-boarder"
+                                     id="blockingTaskSelectionField">
+                                    <label for="blockingTaskSearch" class="form-label" id="blockingTaskLabel">
+                                        Wähle eine blockierende Aufgabe
+                                    </label>
+                                    <input type="text" class="form-control mb-3" id="blockingTaskSearch"
+                                           placeholder="Blockierende Aufgabe suchen...">
+                                    <ul class="list-group userSelectList" id="blockingTaskListView"></ul>
+                                    <p id="blockingTaskCountInfo">0 Aufgaben ausgewählt, welche diese Aufgabe
+                                        blockieren</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="align-content: center">
+                    <p id="createTask_error" class="text-error"></p>
+                    <input id="confirmTaskCreateForm_button" type="submit" class="btn btn-teal float-end"
+                           form="TaskCreateForm" value="Aufgabe erstellen">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Details modal-->
+    <div class="modal modal-cust fade" id="taskDetailsModal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTaskLabel">Aufgabendetails</h5>
+
+                    <!-- Info Icon -->
+                    <img src="/assets/svg/information_icon.svg" alt="InfoButton" width="25px" height="25px"
+                         style="cursor: pointer; margin-left: 10px;" onclick="toggleInfoTextEditTask()"/>
+
+                    <!-- Info Text -->
+                    <div id="infoTextEditTask" class="infoBox" style="display: none">
+                        <p><span style="color: #dc3545;">*</span> Pflichtfelder <br> Es können Mitarbeiter hinzugefügt
+                            oder entfernt werden. Abhängigkeiten können angepasst werden. Die Aufgabe kann hier auch
+                            gelöscht werden.</p>
+                    </div>
+
+                    <button type="button" id="editTask_close" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="editTaskModalBody">
+                    <form id="editTaskForm">
+                        <div class="row">
+                            <!-- Linke Spalte -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="editTask_name" class="form-label">Titel <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="title" id="editTask_name"
+                                           required maxlength="128">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editTask_description" class="form-label">Beschreibung <span
+                                            class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="description" id="editTask_description"
+                                              maxlength="1024" rows="7" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editTask_status" class="form-label">Status</label>
+                                    <select class="form-select" name="status" id="editTask_status" required>
+                                        <option value="TODO">To Do</option>
+                                        <option value="ASSIGNED">Zugewiesen</option>
+                                        <option value="IN_PROGRESS">In Bearbeitung</option>
+                                        <option value="READY_TO_REVIEW">Ready To Review</option>
+                                        <option value="IN_REVIEW">In Review</option>
+                                        <option value="DONE">Fertig</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editTask_dueDate" class="form-label">Fälligkeitsdatum <span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="dueDate" id="editTask_dueDate"
+                                           required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="editTask_creationDateTime"
+                                           class="form-label">Erstellungszeitpunkt</label>
+                                    <input type="text" class="form-control" id="editTask_creationDateTime" disabled>
+                                </div>
+                                <div class="mb-3" id="editTask_startDateTimeDiv" style="display: none">
+                                    <label for="editTask_startDateTime" class="form-label">Startzeitpunkt</label>
+                                    <input type="text" class="form-control" id="editTask_startDateTime" disabled>
+                                </div>
+                                <div class="mb-3" id="editTask_completionDateTimeDiv" style="display: none">
+                                    <label for="editTask_completionDateTime"
+                                           class="form-label">Fertigstellungszeitpunkt</label>
+                                    <input type="text" class="form-control" id="editTask_completionDateTime" disabled>
+                                </div>
+                            </div>
+
+                            <!-- Rechte Spalte -->
+                            <div class="col-md-6">
+                                <!-- Mitarbeiter zuweisen -->
+                                <div class="form-group mb-3 form-boarder">
+                                    <label for="editTask_userList">Mitarbeiter zuweisen</label>
+                                    <input type="text" id="userEditSearchTask" class="form-control mb-2"
+                                           placeholder="Mitarbeiter suchen...">
+                                    <ul class="list-group userSelectList" id="editTask_userList"></ul>
+                                    <p id="editTask_userInfo">Kein Mitarbeiter ausgewählt</p>
+                                </div>
+
+                                <!-- Subtasks hinzufügen -->
+                                <div class="form-group mb-3 form-boarder">
+                                    <label for="editSubtasksSearch" class="form-label">Unteraufgabe hinzufügen</label>
+                                    <input type="text" id="editSubtasksSearch" class="form-control mb-2"
+                                           placeholder="Unteraufgabe suchen...">
+                                    <ul class="list-group userSelectList" id="editSubtasksList"></ul>
+                                    <p id="editSubtasksInfo">Keine Unteraufgabe ausgewählt</p>
+                                </div>
+
+                                <!-- Übergeordnete Aufgabe auswählen -->
+                                <div class="form-group mb-3 form-boarder">
+                                    <label for="editParentTaskSearch" class="form-label">Übergeordnete Aufgabe
+                                        auswählen</label>
+                                    <input type="text" id="editParentTaskSearch" class="form-control mb-2"
+                                           placeholder="Übergeordnete Aufgabe suchen...">
+                                    <ul class="list-group userSelectList" id="editParentTaskList"></ul>
+                                    <p id="editParentTaskInfo">Keine übergeordnete Aufgabe ausgewählt</p>
+                                </div>
+
+                                <!-- Blockierende Aufgaben auswählen -->
+                                <div class="form-group mb-3 form-boarder">
+                                    <label for="editBlockedBySearch" class="form-label">Blockierende Aufgaben
+                                        auswählen</label>
+                                    <input type="text" id="editBlockedBySearch" class="form-control mb-2"
+                                           placeholder="Blockierende Aufgabe suchen...">
+                                    <ul class="list-group userSelectList" id="editBlockedByList"></ul>
+                                    <p id="editBlockedByInfo">Keine blockierenden Aufgaben ausgewählt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="align-content: center; justify-content: normal; display: block">
+                    <p id="editTask_error" class="text-error"></p>
+                    <button class="btn btn-danger align-self-start" data-bs-toggle="modal"
+                            data-bs-target="#deleteTaskModal"
+                            id="openDeleteTaskModalButton">
+                        Aufgabe löschen
+                    </button>
+                    <input id="confirmProjectCreateForm_btn" type="submit" class="btn btn-teal float-end align-self-end"
+                           form="editTaskForm"
+                           value="Aufgabe bearbeiten">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Task Confirmation Modal -->
+    <div class="modal fade" id="deleteTaskModal" tabindex="-1" aria-labelledby="deleteTaskModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Aufgabe Löschen Bestätigen</h5>
+                    <button type="button" id="deleteTaskModalClose" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="deleteTaskConfirmationText">Sind Sie sicher, dass Sie die Aufgabe <strong
+                            id="taskDeleteTitle"></strong> löschen wollen?</p>
+                    <div id="subtaskListContainer" style="display: none;">
+                        <p>Folgende Unteraufgaben werden ebenfalls gelöscht:</p>
+                        <ul id="subtaskList" class="list-group"></ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p id="deleteTask_error" class="text-error"></p>
+                    <button type="button" id="confirmDeleteTaskButton" class="btn btn-important">Aufgabe löschen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/libraries/js/bootstrap.min.js"></script>
+    <script src="/libraries/js/sortableJS.js"></script>
+    <script src="/assets/js/notification.js"></script>
+    <script src="/assets/js/navbar.js"></script>
+    <script src="/assets/js/projectViews.js"></script>
+    <script src="/assets/js/utility.js"></script>
+    <script src="/assets/js/viewDetails.js"></script>
+    <script src="/assets/js/viewBoard.js"></script>
+    <script src="/assets/js/viewList.js"></script>
+</html>

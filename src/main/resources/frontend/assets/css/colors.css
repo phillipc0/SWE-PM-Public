@@ -1,0 +1,42 @@
+:root {
+    /* Main color */
+    --teal: #00ABB3;
+    --teal-light: #0dcccc;
+
+    /* secondary */
+    --dark-gray: #3C4048;
+
+    --gray: #B2B2B2;
+    --middle-gray: #DDD;
+    --light-gray: #EFEFEF;
+
+
+    --black: #000000;
+    --white: #FFFFFF;
+
+
+    --warning: #DD1116;
+    --warning-light: #E5460A;
+
+    /* Status colors light TEMP-TODO */
+    --todo: #777B;
+    --assigned: #555B;
+    --inprogress: #49FC;
+    --readytoreview: #53FC;
+    --inreview: #E07C;
+    --completed: #2C2B;
+
+    /*Login Inputs*/
+
+    --input-default: var(--teal);
+    --input-border: var(--teal);
+    --input-disabled: #3C3C434C;
+    --input-disabled-white: #eff1f2;
+    --input-hover: #121212;
+    --input-hover-fill: #12121220;
+    --input-accent: var(--black);
+
+    --pw-confirm: lime;
+    --pw-invalid: grey;
+
+}

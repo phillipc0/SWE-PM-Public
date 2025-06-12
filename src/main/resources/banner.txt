@@ -1,0 +1,11 @@
+
+${AnsiColor.DEFAULT}███████╗██╗    ██╗███████╗    ██████╗ ███╗   ███╗
+${AnsiColor.DEFAULT}██╔════╝██║    ██║██╔════╝    ██╔══██╗████╗ ████║
+${AnsiColor.DEFAULT}███████╗██║ █╗ ██║█████╗█████╗██████╔╝██╔████╔██║
+${AnsiColor.DEFAULT}╚════██║██║███╗██║██╔══╝╚════╝██╔═══╝ ██║╚██╔╝██║
+${AnsiColor.DEFAULT}███████║╚███╔███╔╝███████╗    ██║     ██║ ╚═╝ ██║
+${AnsiColor.DEFAULT}╚══════╝ ╚══╝╚══╝ ╚══════╝    ╚═╝     ╚═╝     ╚═╝
+
+${AnsiColor.DEFAULT}Spring Version: ${AnsiColor.BRIGHT_YELLOW}${spring-boot.version}
+${AnsiColor.DEFAULT}Java Version: ${AnsiColor.BRIGHT_YELLOW}${java.version}
+${AnsiColor.DEFAULT}

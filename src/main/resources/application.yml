@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: SWE-PM
+
+  thymeleaf:
+    prefix: classpath:/frontend/
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  web:
+    resources:
+      static-locations: classpath:/frontend/
+
+  datasource:
+    url: jdbc:h2:file:./db/swepm
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: false #enable for debugging
+
+server:
+  port: 8069
+  error:
+    whitelabel:
+      enabled: false
+    path: "/error"

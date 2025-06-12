@@ -1,0 +1,56 @@
+<div>
+
+    <div class="btn-group" role="group"
+         style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px; margin-top: 60px">
+        <div class="btn-group" role="group" aria-label="Filter tasks" style="display: flex;">
+            <button id="filterAllTasks" type="button" class="btn btn-outline-teal btn-list-view-variant">Alle Aufgaben
+            </button>
+            <button id="filterCompletedTasks" type="button" class="btn btn-outline-teal">Fertige Aufgaben</button>
+            <button id="filterMyTasks" type="button" class="btn btn-outline-teal"
+                    style="border-bottom-right-radius: 6px; border-top-right-radius: 6px;">Eigene Aufgaben
+            </button>
+        </div>
+        <!-- Info Icon, rechts ausgerichtet -->
+        <img src="/assets/svg/information_icon.svg" alt="InfoButton" width="25px" height="25px"
+             style="cursor: pointer;" onclick="toggleInfoText()"/>
+
+        <!-- Info Text -->
+        <div id="infoText" class="infoBox" style="display: none; right: 0">
+            <p>Auf der Ansicht <b>Liste</b> werden die Aufgaben in Listenform dargestellt. Eine Unteraufgabe steht immer
+                unter der Hauptaufgabe. Sie können nach den Spalten sortieren und nach fertigen oder eigenen Aufgaben
+                filtern. Per Klick auf die Zeile einer Aufgabe werden die Details angezeigt. Jede Aufgabe kann in einen
+                Kalender exportiert oder als ICS-Datei heruntergeladen werden.</p>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered" id="tasksTable">
+            <thead>
+            <tr>
+                <th colspan="2" id="title-header" scope="col">
+                    Titel <span id="sort-icon-0" class="sort-icon">&#9650;&#9660;</span>
+                </th>
+                <th id="assigned-header" scope="col">
+                    Zugewiesene Mitarbeiter <span id="sort-icon-1" class="sort-icon">&#9650;&#9660;</span>
+                </th>
+                <th id="status-header" scope="col">
+                    Status <span id="sort-icon-2" class="sort-icon">&#9650;&#9660;</span>
+                </th>
+                <th id="due-date-header" scope="col">
+                    Fälligkeitsdatum <span id="sort-icon-3" class="sort-icon">&#9650;&#9660;</span>
+                </th>
+                <th id="completion-date-header" style="display: none;">
+                    Fertigstellungsdatum <span id="sort-icon-4" class="sort-icon">&#9650;&#9660;</span>
+                </th>
+                <th id="download-header">
+                    Kalender
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Task rows will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+docs
+src
+  main
+    java
+      de.telekom.swepm
+        controller
+        domain
+        dto
+        filters
+        repos
+        security
+        utils
+    resources
+      frontend
+        assets
+          css
+          img
+          js
+          svg
+          templates
+        libraries
+          css
+          js
+        index.html
+      application.yml
+  test
+    java

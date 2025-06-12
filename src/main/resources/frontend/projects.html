@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Projio - Projektübersicht</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/x-icon" sizes="64x64" href="favicon.ico">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+
+        <link href="libraries/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/custom.css">
+    </head>
+    <body>
+        <div id="navbar-placeholder"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="sort-container" style="display: flex; align-items: center; position: relative;">
+                    <!-- Spacer element to push the buttons to the center -->
+                    <div style="flex: 1;"></div>
+
+                    <!-- Container for the buttons, centrally aligned -->
+                    <div style="display: flex; gap: 4px; ">
+                        <button id="sortName" class="btn-sort-project" title="Sortieren nach Projektname"
+                                onclick="sortProjects('name')">
+                            Projektname <span id="sortNameIcon">▲</span>
+                        </button>
+                        <button id="sortManager" class="btn-sort-project" title="Sortieren nach Projektmanager"
+                                onclick="sortProjects('manager')">
+                            Projektleiter <span id="sortManagerIcon">▲</span>
+                        </button>
+                        <button id="sortMembers" class="btn-sort-project" title="Sortieren nach Anzahl der Mitglieder"
+                                onclick="sortProjects('members')">
+                            Mitarbeiter <span id="sortMembersIcon">▲</span>
+                        </button>
+                    </div>
+
+                    <!-- Spacer element to push the icon to the right -->
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <img src="assets/svg/information_icon.svg" alt="InfoButton" width="25px" height="25px"
+                             style="cursor: pointer;" onclick="toggleInfoText()"/>
+                    </div>
+
+                    <!-- Info Text -->
+                    <div id="infoText" class="infoBox" style="display: none; right: 0">
+                        <p>Auf dieser Seite befindet sich die Projektübersicht. Als Projektmanager sieht man alle
+                            Projekte. Als Mitarbeiter sind man die Projekte, denen man zugeordnet ist. Sie können die
+                            Projekte mithilfe der Buttons sortieren. Per Klick auf <b>Auswählen</b> sieht man die
+                            Inhalte des Projekts. Ein Projektmanager kann zudem neue Projekte erstellen. </p>
+                    </div>
+                </div>
+
+                <div id="cards" class="row justify-content-center">
+                    <!-- card content here -->
+                </div>
+            </div>
+
+
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div id="error-placeholder" class="text-center w-75">
+
+            </div>
+        </div>
+
+        <!-- Create project modal -->
+        <div class="modal modal-cust fade" id="createProjectModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createProjectLabel">Projekt erstellen</h5>
+
+                        <!-- Info Icon -->
+                        <img src="/assets/svg/information_icon.svg" alt="InfoButton" width="25px" height="25px"
+                             style="cursor: pointer; margin-left: 10px;" onclick="toggleInfoTextCreateProject()"/>
+
+                        <!-- Info Text -->
+                        <div id="infoTextCreateProject" class="infoBox"
+                             style="display: none; top: 45px; padding-bottom: 1px; left: 100px">
+                            <p><span style="color: #dc3545;">*</span> Pflichtfelder</p>
+                        </div>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="projectCreateForm">
+                            <div class="mb-3">
+                                <label for="createProject_name" class="form-label">Projektname <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="name" id="createProject_name"
+                                       required maxlength="42">
+                            </div>
+                            <div class="mb-3">
+                                <label for="createProject_description" class="form-label">Projektbeschreibung
+                                    <span style="color: lightgray;">(optional)</span>
+                                </label>
+                                <textarea class="form-control" name="description" id="createProject_description"
+                                          maxlength="1024" rows="4"
+                                          cols="50"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="managersearch">Projektleiterauswahl <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="managersearch" class="form-control mb-3"
+                                       placeholder="Projektleiter suchen...">
+                                <ul class="list-group userSelectList" id="managerList"></ul>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="usersearch">Mitarbeiterauswahl <span
+                                        style="color: lightgray;">(optional)</span></label>
+                                <input type="text" id="usersearch" class="form-control mb-3"
+                                       placeholder="Mitarbeiter suchen...">
+                                <ul class="list-group userSelectList" id="userList">
+                                </ul>
+                                <p id="userCountInfo">Kein Mitarbeiter ausgewählt</p>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="align-content: center">
+                        <p id="createProject_status" class="text-error"></p>
+                        <input id="confirmProjectCreateForm_btn" type="submit" class="btn btn-teal float-end"
+                               form="projectCreateForm"
+                               value="Projekt erstellen">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    <script src="libraries/js/bootstrap.min.js"></script>
+    <script src="assets/js/projects.js"></script>
+    <script src="assets/js/projects_createModal.js"></script>
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/utility.js"></script>
+</html>
