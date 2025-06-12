@@ -12,12 +12,6 @@ The application runs on port 8069.
 - ~~erika.mustermann@mail.de/erika~~
 - ~~otto.normalverbraucher@mail.de/OTTOnormalverbraucher123~~
 
-### Useful Links
-
-[Current Sprint Board](https://github.com/users/phillipc0/projects/2/views/1)
-
-[Planning Board](https://github.com/users/phillipc0/projects/2/views/10)
-
 ### Sprint overview guidance
 
 - Sprint 1: Inital FE & BE Setup/Structure, first Webpages
